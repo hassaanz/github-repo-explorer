@@ -1,19 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import { ApolloProvider } from '@apollo/client/react';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import GQLClient from "./apolloClient";
-import {GITHUB_API_URI} from "./constants";
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import App from './App'
+import reportWebVitals from './reportWebVitals'
 
-const githubClient = new GQLClient(GITHUB_API_URI).getClient()
 
 ReactDOM.render(
   <React.StrictMode>
-      <ApolloProvider client={githubClient}>
-          <App />
-      </ApolloProvider>
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

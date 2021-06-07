@@ -1,22 +1,20 @@
 import React from 'react';
 import './App.css';
-import { Repository, default as RepositoryTable } from "./Components/RepositoryTable";
+import Routes from "./Routes";
+import {ApolloProvider} from "@apollo/client/react";
+import GithubGQLClient from "./GithubGQLClient";
+
+
+const githubPAT = process.env.REACT_APP_GITHUB_GRAPHQL_AUTH_TOKEN || ''
+
+const githubClient = new GithubGQLClient(githubPAT).getClient()
 
 function App() {
-    const repoItems: Repository[] = [{
-        name: 'asd',
-        stars: 20,
-        forks: 200,
-        url: '',
-    }, {
-        name: 'asd',
-        stars: 20,
-        forks: 200,
-        url: '',
-    }]
     return (
         <div className="App">
-            <RepositoryTable repositories={repoItems} />
+            <ApolloProvider client={githubClient}>
+                <Routes />
+            </ApolloProvider>
         </div>
     );
 }
