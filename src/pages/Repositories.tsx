@@ -19,7 +19,7 @@ type gqlSearchRespData = {
         nodes: GithubRepo[],
     }
 }
-function transformGQLToRepo(gqlSearchRespData: gqlSearchRespData): Repository[] {
+export function transformGQLToRepo(gqlSearchRespData: gqlSearchRespData): Repository[] {
     return gqlSearchRespData.search.nodes.map(githubRepo => ({
         name: githubRepo.name,
         forks: githubRepo.forkCount,

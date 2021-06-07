@@ -47,7 +47,13 @@ const RepositoryTable: FC<RepositoryTableProps> = ({repositories, loading}) => {
                 <TableBody>
                     {repositories.map((repository) => (
                         <TableRow key={repository.name}>
-                            <TableCell component="th" scope="row">{repository.name}</TableCell>
+                            <TableCell
+                                component="th"
+                                scope="row"
+                                onClick={() => window.location.href=repository.url}
+                            >
+                                {repository.name}
+                            </TableCell>
                             <TableCell align="left">{repository.stars} ⭐</TableCell>
                             <TableCell align="left">{repository.forks} 🍴</TableCell>
                         </TableRow>
