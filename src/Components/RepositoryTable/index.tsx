@@ -7,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 const useStyles = makeStyles({
     table: {
@@ -16,17 +17,23 @@ const useStyles = makeStyles({
 
 export type Repository = {
     name: string;
-    forks: number ;
+    forks: number;
     url: string;
     stars: number;
 }
 
 type RepositoryTableProps = {
     repositories: Repository[]
+    loading: boolean,
 }
 
-const RepositoryTable: FC<RepositoryTableProps> = ({repositories}) => {
+const RepositoryTable: FC<RepositoryTableProps> = ({repositories, loading}) => {
     const classes = useStyles();
+    if (loading) {
+        return (
+            <Skeleton variant="rect" />
+        )
+    }
     return (
         <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
