@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import {useQuery} from "@apollo/client";
 import {searchRepositories} from "../Queries/Repositories";
 import {default as RepositoryTable, Repository} from "../Components/RepositoryTable";
+import {Input} from "@material-ui/core";
 
 
 type GithubRepo = {
@@ -29,14 +30,26 @@ export function transformGQLToRepo(gqlSearchRespData: gqlSearchRespData): Reposi
 }
 
 const Repositories = () => {
-    const {loading, data, error} = useQuery<gqlSearchRespData>(searchRepositories('react'))
+    const [searchTag, setSearchTag] = useState('react')
+    const {loading, data, error} = useQuery<gqlSearchRespData>(searchRepositories(searchTag))
     const repositories = data? transformGQLToRepo(data) : []
     if (error) {
-        return <span>An error happened. Please try later.</span>
+        return (
+            <span>An error happened. Please try later.</span>
+        )
     }
+
     return (
-        <RepositoryTable repositories={repositories} loading={loading}/>
-    )
+        <>
+            <Input
+                type="text"
+                value={searchTag}
+                onChange={(ev) => setSearchTag(ev.target.value)}
+            />
+            <RepositoryTable repositories={repositories} loading={loading}/>
+        </>
+
+)
 }
 
 export default Repositories
